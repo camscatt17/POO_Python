@@ -12,25 +12,39 @@ class Conta():
     def deposita(self, valor):
         self.__saldo += valor
 
+    def __podeSacar(self, valor):
+        return valor <= (self.__saldo + self.__limite)
+
     def saca(self, valor):
-        self.__saldo -= valor
+        if(self.__podeSacar(valor)):
+            self.__saldo -= valor
+        else:
+            print("O valor {} ultrapassou o limite da conta".format(valor))
 
     def transfere(self, valor,contaDestino):
         self.saca(valor)
         contaDestino.deposita(valor)
 
-    def getSaldo(self):
+    @property
+    def saldo(self):
         return self.__saldo
-
-    def getTitular(self):
+    @property
+    def titular(self):
         return self.__titular
 
     @property
     def limite(self):
         return self.__limite
-
-    def getNumeroConta(self):
+    @property
+    def conta(self):
         return self.__numero
     @limite.setter
     def limite(self, limite):
         self.__limite = limite
+    @staticmethod #indica que o método é estático, ou seja refere-se à classe e não aos seus atributos
+    def codigoBanco():
+        return "001"
+
+    @staticmethod
+    def codigosBancos():
+        return {'BB':'001', 'Caixa':'104', 'Bradesco':'237'}
