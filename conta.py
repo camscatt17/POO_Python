@@ -28,6 +28,7 @@ class Conta():
     @property
     def saldo(self):
         return self.__saldo
+
     @property
     def titular(self):
         return self.__titular
@@ -35,12 +36,15 @@ class Conta():
     @property
     def limite(self):
         return self.__limite
+
     @property
     def conta(self):
         return self.__numero
+
     @limite.setter
     def limite(self, limite):
         self.__limite = limite
+
     @staticmethod #indica que o método é estático, ou seja refere-se à classe e não aos seus atributos
     def codigoBanco():
         return "001"
