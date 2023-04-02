@@ -1,4 +1,5 @@
-class Programa:
+from abc import ABCMeta, abstractmethod
+class Programa(metaclass= ABCMeta):
     def __init__(self, nome, ano):
         self._nome = nome.title()
         self.ano = ano
@@ -15,6 +16,7 @@ class Programa:
     def nome(self, nome):
         self._nome = nome
 
+    @abstractmethod
     def __str__(self):
         return f'{self._nome} - {self.ano}: {self._likes} Likes'
 
@@ -34,12 +36,32 @@ class Serie(Programa):
     def __str__(self):
         return f'{self._nome} - {self.ano} - {self.temporada} temporadas: {self._likes} Likes'
 
+class Playlist:
+    def __init__(self, nome, programas):
+        self.nome = nome
+        self._programas = programas
+
+    def __getitem__(self, item):
+        return self._programas[item]
+
+    @property
+    def listagem(self):
+        return self._programas
+
+    def __len__(self):
+        return len(self._programas)
 
 
 vingadores = Filme('Vingadores - Guerra Infinita', 2018, 160)
-
 atlanta = Serie('Atlanta', 2018, 2)
+tmep = Filme('Todo mundo em panico', 1999, 100)
+demolidor = Serie('Demolidor', 2016, 2)
 
-filmes_e_series =[vingadores,atlanta]
-for programa in filmes_e_series:
+filmes_e_series =[vingadores, atlanta, demolidor, tmep]
+playlist_fim_de_semana = Playlist('Fim de Semana', filmes_e_series)
+
+print(f'Tamanho da playlist Fim de semana: {len(playlist_fim_de_semana)}')
+
+for programa in playlist_fim_de_semana:
     print(programa)
+
